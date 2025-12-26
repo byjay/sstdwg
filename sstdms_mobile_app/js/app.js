@@ -8,28 +8,28 @@ class SSTDMSMobileApp {
         this.apiBaseUrl = window.location.origin;
         this.isOnline = navigator.onLine;
         this.cache = new Map();
-        
+
         this.init();
     }
 
     async init() {
         console.log('🚀 SSTDMS Mobile App 초기화 시작');
-        
+
         // 이벤트 리스너 등록
         this.setupEventListeners();
-        
+
         // PWA 설정
         this.setupPWA();
-        
+
         // 오프라인 감지
         this.setupOfflineDetection();
-        
+
         // 스플래시 화면 처리
         await this.handleSplashScreen();
-        
+
         // 자동 로그인 확인
         await this.checkAutoLogin();
-        
+
         console.log('✅ SSTDMS Mobile App 초기화 완료');
     }
 
@@ -38,11 +38,11 @@ class SSTDMSMobileApp {
         const menuToggle = document.getElementById('menu-toggle');
         const menuClose = document.getElementById('menu-close');
         const sideMenu = document.getElementById('side-menu');
-        
+
         if (menuToggle) {
             menuToggle.addEventListener('click', () => this.toggleMenu());
         }
-        
+
         if (menuClose) {
             menuClose.addEventListener('click', () => this.closeMenu());
         }
@@ -99,13 +99,13 @@ class SSTDMSMobileApp {
     setupTouchEvents() {
         // 터치 피드백 추가
         const touchables = document.querySelectorAll('button, .touchable, .menu-link, .nav-item');
-        
+
         touchables.forEach(element => {
             element.addEventListener('touchstart', (e) => {
                 element.style.transform = 'scale(0.95)';
                 element.style.opacity = '0.8';
             }, { passive: true });
-            
+
             element.addEventListener('touchend', (e) => {
                 setTimeout(() => {
                     element.style.transform = '';
@@ -121,19 +121,19 @@ class SSTDMSMobileApp {
     setupSwipeGestures() {
         let startX = 0;
         let startY = 0;
-        
+
         document.addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
         }, { passive: true });
-        
+
         document.addEventListener('touchend', (e) => {
             const endX = e.changedTouches[0].clientX;
             const endY = e.changedTouches[0].clientY;
-            
+
             const deltaX = endX - startX;
             const deltaY = endY - startY;
-            
+
             // 수평 스와이프가 수직 스와이프보다 클 때
             if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
                 if (deltaX > 0) {
@@ -163,7 +163,7 @@ class SSTDMSMobileApp {
             try {
                 const registration = await navigator.serviceWorker.register('/sw.js');
                 console.log('✅ Service Worker 등록 성공:', registration);
-                
+
                 // 업데이트 확인
                 registration.addEventListener('updatefound', () => {
                     console.log('🔄 새 버전 발견, 업데이트 중...');
@@ -198,14 +198,14 @@ class SSTDMSMobileApp {
     async handleSplashScreen() {
         const splashScreen = document.getElementById('splash-screen');
         const app = document.getElementById('app');
-        
+
         // 최소 2초 스플래시 화면 표시
         await new Promise(resolve => setTimeout(resolve, 2000));
-        
+
         if (splashScreen && app) {
             splashScreen.classList.add('hidden');
             app.style.display = 'flex';
-            
+
             // 스플래시 화면 제거
             setTimeout(() => {
                 splashScreen.remove();
@@ -216,7 +216,7 @@ class SSTDMSMobileApp {
     async checkAutoLogin() {
         const savedToken = localStorage.getItem('sstdms_token');
         const rememberMe = localStorage.getItem('sstdms_remember');
-        
+
         if (savedToken && rememberMe === 'true') {
             try {
                 const response = await this.apiCall('/api/auth/verify', {
@@ -225,7 +225,7 @@ class SSTDMSMobileApp {
                         'Authorization': `Bearer ${savedToken}`
                     }
                 });
-                
+
                 if (response.success) {
                     this.currentUser = response.user;
                     this.showScreen('dashboard');
@@ -244,10 +244,10 @@ class SSTDMSMobileApp {
         const sideMenu = document.getElementById('side-menu');
         const overlay = document.getElementById('menu-overlay');
         const menuToggle = document.getElementById('menu-toggle');
-        
+
         if (sideMenu && overlay) {
             const isOpen = sideMenu.classList.contains('open');
-            
+
             if (isOpen) {
                 this.closeMenu();
             } else {
@@ -260,12 +260,12 @@ class SSTDMSMobileApp {
         const sideMenu = document.getElementById('side-menu');
         const overlay = document.getElementById('menu-overlay');
         const menuToggle = document.getElementById('menu-toggle');
-        
+
         if (sideMenu && overlay) {
             sideMenu.classList.add('open');
             overlay.classList.add('active');
             menuToggle?.classList.add('active');
-            
+
             // 메뉴 열릴 때 햅틱 피드백
             if (navigator.vibrate) {
                 navigator.vibrate(50);
@@ -277,7 +277,7 @@ class SSTDMSMobileApp {
         const sideMenu = document.getElementById('side-menu');
         const overlay = document.getElementById('menu-overlay');
         const menuToggle = document.getElementById('menu-toggle');
-        
+
         if (sideMenu && overlay) {
             sideMenu.classList.remove('open');
             overlay.classList.remove('active');
@@ -288,11 +288,11 @@ class SSTDMSMobileApp {
     togglePassword() {
         const passwordInput = document.getElementById('password');
         const toggleBtn = document.getElementById('toggle-password');
-        
+
         if (passwordInput && toggleBtn) {
             const isPassword = passwordInput.type === 'password';
             passwordInput.type = isPassword ? 'text' : 'password';
-            
+
             // 아이콘 변경
             const svg = toggleBtn.querySelector('svg');
             if (svg) {
@@ -313,13 +313,13 @@ class SSTDMSMobileApp {
 
     async handleLogin(e) {
         e.preventDefault();
-        
+
         const email = document.getElementById('email')?.value;
         const password = document.getElementById('password')?.value;
         const rememberMe = document.getElementById('remember-me')?.checked;
         const loginBtn = document.getElementById('login-btn');
         const errorDiv = document.getElementById('login-error');
-        
+
         if (!email || !password) {
             this.showError('이메일과 비밀번호를 입력해주세요');
             return;
@@ -327,7 +327,7 @@ class SSTDMSMobileApp {
 
         // 로딩 상태 표시
         this.setLoginLoading(true);
-        
+
         try {
             const response = await this.apiCall('/api/auth/login', {
                 method: 'POST',
@@ -340,23 +340,23 @@ class SSTDMSMobileApp {
                     remember_me: rememberMe
                 })
             });
-            
+
             if (response.success) {
                 this.currentUser = response.user;
-                
+
                 // 토큰 저장
                 if (response.token) {
                     localStorage.setItem('sstdms_token', response.token);
                     localStorage.setItem('sstdms_remember', rememberMe.toString());
                 }
-                
+
                 // 대시보드로 이동
                 this.showScreen('dashboard');
                 this.updateUserInfo();
                 this.loadDashboardData();
-                
+
                 this.showToast(`환영합니다, ${response.user.full_name}님!`, 'success');
-                
+
                 // 햅틱 피드백
                 if (navigator.vibrate) {
                     navigator.vibrate([100, 50, 100]);
@@ -376,10 +376,10 @@ class SSTDMSMobileApp {
         const loginBtn = document.getElementById('login-btn');
         const btnText = loginBtn?.querySelector('.btn-text');
         const btnLoader = loginBtn?.querySelector('.btn-loader');
-        
+
         if (loginBtn) {
             loginBtn.disabled = loading;
-            
+
             if (btnText) btnText.style.display = loading ? 'none' : 'inline';
             if (btnLoader) btnLoader.style.display = loading ? 'block' : 'none';
         }
@@ -390,7 +390,7 @@ class SSTDMSMobileApp {
         if (errorDiv) {
             errorDiv.textContent = message;
             errorDiv.style.display = 'block';
-            
+
             // 3초 후 자동 숨김
             setTimeout(() => {
                 errorDiv.style.display = 'none';
@@ -409,17 +409,17 @@ class SSTDMSMobileApp {
         } catch (error) {
             console.error('로그아웃 오류:', error);
         }
-        
+
         // 로컬 데이터 정리
         localStorage.removeItem('sstdms_token');
         localStorage.removeItem('sstdms_remember');
         this.currentUser = null;
         this.cache.clear();
-        
+
         // 로그인 화면으로 이동
         this.showScreen('login');
         this.closeMenu();
-        
+
         this.showToast('로그아웃되었습니다', 'info');
     }
 
@@ -429,16 +429,16 @@ class SSTDMSMobileApp {
         screens.forEach(screen => {
             screen.classList.remove('active');
         });
-        
+
         // 선택된 화면 표시
         const targetScreen = document.getElementById(`${screenName}-screen`);
         if (targetScreen) {
             targetScreen.classList.add('active');
             this.currentScreen = screenName;
-            
+
             // 네비게이션 상태 업데이트
             this.updateNavigation(screenName);
-            
+
             // 화면별 데이터 로드
             this.loadScreenData(screenName);
         }
@@ -453,7 +453,7 @@ class SSTDMSMobileApp {
                 link.classList.add('active');
             }
         });
-        
+
         // 하단 네비게이션 활성화
         const navItems = document.querySelectorAll('.nav-item');
         navItems.forEach(item => {
@@ -466,19 +466,19 @@ class SSTDMSMobileApp {
 
     updateUserInfo() {
         if (!this.currentUser) return;
-        
+
         const userInitial = document.getElementById('user-initial');
         const userName = document.getElementById('user-name');
         const userRole = document.getElementById('user-role');
-        
+
         if (userInitial) {
             userInitial.textContent = this.currentUser.full_name.charAt(0).toUpperCase();
         }
-        
+
         if (userName) {
             userName.textContent = this.currentUser.full_name;
         }
-        
+
         if (userRole) {
             const roleMap = {
                 'admin': '관리자',
@@ -487,7 +487,7 @@ class SSTDMSMobileApp {
             };
             userRole.textContent = roleMap[this.currentUser.category] || '사용자';
         }
-        
+
         // 권한별 메뉴 표시/숨김
         this.updateMenuVisibility();
     }
@@ -495,15 +495,15 @@ class SSTDMSMobileApp {
     updateMenuVisibility() {
         const registrarMenus = document.querySelectorAll('.registrar-only');
         const adminMenus = document.querySelectorAll('.admin-only');
-        
+
         registrarMenus.forEach(menu => {
-            menu.style.display = 
-                (this.currentUser.category === 'registrar' || this.currentUser.category === 'admin') 
-                ? 'block' : 'none';
+            menu.style.display =
+                (this.currentUser.category === 'registrar' || this.currentUser.category === 'admin')
+                    ? 'block' : 'none';
         });
-        
+
         adminMenus.forEach(menu => {
-            menu.style.display = 
+            menu.style.display =
                 this.currentUser.category === 'admin' ? 'block' : 'none';
         });
     }
@@ -512,7 +512,7 @@ class SSTDMSMobileApp {
         e.preventDefault();
         const link = e.currentTarget;
         const href = link.getAttribute('href');
-        
+
         if (href && href.startsWith('#')) {
             const screenName = href.substring(1);
             this.showScreen(screenName);
@@ -523,7 +523,7 @@ class SSTDMSMobileApp {
     handleNavClick(e) {
         const item = e.currentTarget;
         const screenName = item.dataset.screen;
-        
+
         if (screenName) {
             this.showScreen(screenName);
         }
@@ -547,7 +547,7 @@ class SSTDMSMobileApp {
     async loadDashboardData() {
         try {
             const response = await this.apiCall('/api/dashboard/stats');
-            
+
             if (response.success) {
                 this.updateDashboardStats(response.data);
                 this.updateRecentActivity(response.activities);
@@ -562,7 +562,7 @@ class SSTDMSMobileApp {
         const totalProjects = document.getElementById('total-projects');
         const totalDocuments = document.getElementById('total-documents');
         const recentUploads = document.getElementById('recent-uploads');
-        
+
         if (totalProjects) totalProjects.textContent = stats.projects || 0;
         if (totalDocuments) totalDocuments.textContent = stats.documents || 0;
         if (recentUploads) recentUploads.textContent = stats.recent_uploads || 0;
@@ -571,7 +571,7 @@ class SSTDMSMobileApp {
     updateRecentActivity(activities) {
         const activityList = document.getElementById('activity-list');
         if (!activityList || !activities) return;
-        
+
         if (activities.length === 0) {
             activityList.innerHTML = `
                 <div class="empty-state">
@@ -582,7 +582,7 @@ class SSTDMSMobileApp {
             `;
             return;
         }
-        
+
         activityList.innerHTML = activities.map(activity => `
             <div class="activity-item">
                 <div class="activity-icon">
@@ -595,6 +595,109 @@ class SSTDMSMobileApp {
                 <div class="activity-time">${this.formatTime(activity.created_at)}</div>
             </div>
         `).join('');
+    }
+
+    async loadProjectsData() {
+        const listContainer = document.getElementById('drawing-list');
+        if (!listContainer) return;
+
+        try {
+            // 로딩 표시
+            listContainer.innerHTML = `
+                <div class="loading-state">
+                    <div class="spinner"></div>
+                    <p>도면 목록을 불러오는 중...</p>
+                </div>
+            `;
+
+            // 데이터 로드 (캐시 사용 또는 fetch)
+            let drawings = this.cache.get('drawings');
+            if (!drawings) {
+                const response = await fetch('data/drawings.json');
+                drawings = await response.json();
+                this.cache.set('drawings', drawings);
+            }
+
+            this.renderDrawingList(drawings);
+            this.setupSearch(drawings);
+
+        } catch (error) {
+            console.error('도면 목록 로드 실패:', error);
+            listContainer.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">⚠️</div>
+                    <div class="empty-title">데이터를 불러올 수 없습니다</div>
+                    <div class="empty-description">${error.message}</div>
+                </div>
+            `;
+        }
+    }
+
+    renderDrawingList(drawings) {
+        const listContainer = document.getElementById('drawing-list');
+        if (!listContainer) return;
+
+        if (drawings.length === 0) {
+            listContainer.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">📂</div>
+                    <div class="empty-title">도면이 없습니다</div>
+                </div>
+            `;
+            return;
+        }
+
+        const listHtml = drawings.map(dwg => `
+            <div class="drawing-card" onclick="alert('도면 상세 정보:\\n${dwg.shop_dwg_no}\\n${dwg.title}')">
+                <div class="dwg-header">
+                    <span class="dwg-no">${dwg.shop_dwg_no}</span>
+                    <span class="dwg-status status-${this.getStatusClass(dwg.status)}">${dwg.status || 'N/A'}</span>
+                </div>
+                <div class="dwg-title">${dwg.title}</div>
+                <div class="dwg-meta">
+                    <span>BLOCK: ${dwg.block}</span>
+                    <span>REV: ${dwg.revision}</span>
+                </div>
+                <div class="dwg-date">${dwg.date || ''}</div>
+            </div>
+        `).join('');
+
+        listContainer.innerHTML = listHtml;
+    }
+
+    getStatusClass(status) {
+        if (!status) return 'default';
+        const s = status.toLowerCase();
+        if (s.includes('approve') || s.includes('complete')) return 'success';
+        if (s.includes('wait') || s.includes('progress')) return 'warning';
+        if (s.includes('reject') || s.includes('hold')) return 'danger';
+        return 'info';
+    }
+
+    setupSearch(drawings) {
+        const searchInput = document.getElementById('drawing-search-input');
+        const searchToggle = document.getElementById('search-toggle-btn');
+        const searchBar = document.getElementById('project-search-bar');
+
+        if (searchToggle && searchBar) {
+            searchToggle.onclick = () => {
+                const isVisible = searchBar.style.display !== 'none';
+                searchBar.style.display = isVisible ? 'none' : 'block';
+                if (!isVisible) searchInput?.focus();
+            };
+        }
+
+        if (searchInput) {
+            searchInput.oninput = (e) => {
+                const term = e.target.value.toLowerCase();
+                const filtered = drawings.filter(d =>
+                    (d.shop_dwg_no && d.shop_dwg_no.toLowerCase().includes(term)) ||
+                    (d.title && d.title.toLowerCase().includes(term)) ||
+                    (d.block && d.block.toLowerCase().includes(term))
+                );
+                this.renderDrawingList(filtered);
+            };
+        }
     }
 
     getActivityIcon(type) {
@@ -613,7 +716,7 @@ class SSTDMSMobileApp {
         const date = new Date(timestamp);
         const now = new Date();
         const diff = now - date;
-        
+
         if (diff < 60000) return '방금 전';
         if (diff < 3600000) return `${Math.floor(diff / 60000)}분 전`;
         if (diff < 86400000) return `${Math.floor(diff / 3600000)}시간 전`;
@@ -628,7 +731,7 @@ class SSTDMSMobileApp {
                 refreshBtn.style.transform = '';
             }, 500);
         }
-        
+
         await this.loadScreenData(this.currentScreen);
         this.showToast('새로고침 완료', 'success');
     }
@@ -657,12 +760,12 @@ class SSTDMSMobileApp {
         // GitHub Pages 환경에서는 API 호출 대신 정적 JSON 파일 로드
         if (this.apiBaseUrl.includes('github.io')) {
             console.log(`GitHub Pages 모드: ${endpoint} -> 정적 데이터 로드`);
-            
+
             if (endpoint === '/api/dashboard/stats') {
                 return this.getMockDashboardStats();
             }
             if (endpoint === '/api/auth/login') {
-                 // 데모용 가짜 로그인 처리
+                // 데모용 가짜 로그인 처리
                 const body = JSON.parse(options.body);
                 return {
                     success: true,
@@ -678,18 +781,18 @@ class SSTDMSMobileApp {
         }
 
         const url = `${this.apiBaseUrl}${endpoint}`;
-        
+
         // 기본 헤더 설정
         const defaultHeaders = {
             'Content-Type': 'application/json'
         };
-        
+
         // 인증 토큰 추가
         const token = localStorage.getItem('sstdms_token');
         if (token) {
             defaultHeaders['Authorization'] = `Bearer ${token}`;
         }
-        
+
         const config = {
             ...options,
             headers: {
@@ -697,7 +800,7 @@ class SSTDMSMobileApp {
                 ...options.headers
             }
         };
-        
+
         try {
             const response = await fetch(url, config);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -705,7 +808,7 @@ class SSTDMSMobileApp {
         } catch (error) {
             console.warn('API 호출 실패, 오프라인 모드로 전환:', error);
             // API 실패 시에도 데모 데이터 반환 (GitHub Pages 호환성)
-             if (endpoint === '/api/dashboard/stats') {
+            if (endpoint === '/api/dashboard/stats') {
                 return this.getMockDashboardStats();
             }
             throw error;
@@ -717,7 +820,7 @@ class SSTDMSMobileApp {
         try {
             const response = await fetch('data/drawings.json');
             const drawings = await response.json();
-            
+
             // 데이터 분석
             const totalDocs = drawings.length;
             const uniqueProjects = new Set(drawings.map(d => d.contractor_dwg_no.split('-')[0])).size;
@@ -750,21 +853,21 @@ class SSTDMSMobileApp {
     showToast(message, type = 'info', duration = 3000) {
         const toast = document.createElement('div');
         toast.className = `toast toast-${type}`;
-        
+
         const icons = {
             success: '✅',
             error: '❌',
             warning: '⚠️',
             info: 'ℹ️'
         };
-        
+
         toast.innerHTML = `
             <div class="toast-content">
                 <div class="toast-title">${icons[type]} ${message}</div>
             </div>
             <button class="toast-close" onclick="this.parentElement.remove()">×</button>
         `;
-        
+
         // 토스트 컨테이너 확인/생성
         let container = document.querySelector('.toast-container');
         if (!container) {
@@ -772,12 +875,12 @@ class SSTDMSMobileApp {
             container.className = 'toast-container';
             document.body.appendChild(container);
         }
-        
+
         container.appendChild(toast);
-        
+
         // 애니메이션
         setTimeout(() => toast.classList.add('show'), 100);
-        
+
         // 자동 제거
         setTimeout(() => {
             toast.classList.remove('show');
