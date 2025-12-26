@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1e3a8a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SSTDMS Mobile">
+    
+    <title>SSTDMS Mobile - Seastar Design</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/mobile.css">
+    <link rel="stylesheet" href="styles/components.css">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Touch Icons -->
+    <link rel="apple-touch-startup-image" href="icons/splash-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="icons/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="icons/splash-1242x2208.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)">
+</head>
+<body>
+    <!-- 스플래시 스크린 -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <img src="assets/seastar-logo-mobile.png" alt="Seastar Design" class="splash-logo">
+            <h1 class="splash-title">SSTDMS</h1>
+            <p class="splash-subtitle">Ship Design Document Management System</p>
+            <div class="splash-loader">
+                <div class="loader-spinner"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 메인 앱 컨테이너 -->
+    <div id="app" class="app-container" style="display: none;">
+        <!-- 헤더 -->
+        <header class="mobile-header">
+            <div class="header-content">
+                <button id="menu-toggle" class="menu-toggle" aria-label="메뉴">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+                <div class="header-logo">
+                    <img src="assets/seastar-logo-compact.png" alt="Seastar" class="logo-img">
+                    <span class="logo-text">SSTDMS</span>
+                </div>
+                <button id="notifications-btn" class="notifications-btn" aria-label="알림">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span id="notification-badge" class="notification-badge" style="display: none;">0</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 사이드 메뉴 -->
+        <nav id="side-menu" class="side-menu">
+            <div class="menu-header">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <span id="user-initial">U</span>
+                    </div>
+                    <div class="user-details">
+                        <span id="user-name" class="user-name">사용자</span>
+                        <span id="user-role" class="user-role">사용자</span>
+                    </div>
+                </div>
+                <button id="menu-close" class="menu-close" aria-label="메뉴 닫기">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="menu-content">
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a href="#dashboard" class="menu-link active">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                            <span>대시보드</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#projects" class="menu-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            <span>프로젝트</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#documents" class="menu-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14,2 14,8 20,8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10,9 9,9 8,9"></polyline>
+                            </svg>
+                            <span>문서 관리</span>
+                        </a>
+                    </li>
+                    <li class="menu-item registrar-only" style="display: none;">
+                        <a href="#upload" class="menu-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7,10 12,15 17,10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span>파일 업로드</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#search" class="menu-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="M21 21l-4.35-4.35"></path>
+                            </svg>
+                            <span>검색</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#qa" class="menu-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                            <span>질문 & 답변</span>
+                        </a>
+                    </li>
+                    <li class="menu-item admin-only" style="display: none;">
+                        <a href="#admin" class="menu-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 1l3 6 6 3-6 3-3 6-3-6-6-3 6-3z"></path>
+                            </svg>
+                            <span>관리자</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="menu-footer">
+                    <button id="logout-btn" class="logout-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16,17 21,12 16,7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        <span>로그아웃</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 메인 콘텐츠 -->
+        <main id="main-content" class="main-content">
+            <!-- 로그인 화면 -->
+            <div id="login-screen" class="screen active">
+                <div class="login-container">
+                    <div class="login-header">
+                        <img src="assets/seastar-logo-mobile.png" alt="Seastar Design" class="login-logo">
+                        <h1 class="login-title">SSTDMS</h1>
+                        <p class="login-subtitle">Ship Design Document Management System</p>
+                        <p class="login-company">Seastar Design</p>
+                    </div>
+                    
+                    <form id="login-form" class="login-form">
+                        <div class="form-group">
+                            <label for="email" class="form-label">이메일</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="이메일을 입력하세요" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password" class="form-label">비밀번호</label>
+                            <div class="password-input-container">
+                                <input type="password" id="password" name="password" class="form-input" placeholder="비밀번호를 입력하세요" required>
+                                <button type="button" id="toggle-password" class="password-toggle" aria-label="비밀번호 보기/숨기기">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="remember-me" name="remember">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">로그인 상태 유지</span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" id="login-btn" class="login-btn">
+                            <span class="btn-text">로그인</span>
+                            <div class="btn-loader" style="display: none;">
+                                <div class="spinner"></div>
+                            </div>
+                        </button>
+                        
+                        <div id="login-error" class="error-message" style="display: none;"></div>
+                    </form>
+                    
+                    <div class="login-footer">
+                        <p class="test-accounts">테스트 계정:</p>
+                        <p class="test-info">관리자: admin@seastargo.com / admin123</p>
+                        <p class="test-info">설계자: designer@seastargo.com / designer123</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 대시보드 화면 -->
+            <div id="dashboard-screen" class="screen">
+                <div class="screen-header">
+                    <h1 class="screen-title">대시보드</h1>
+                    <button id="refresh-btn" class="refresh-btn" aria-label="새로고침">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23,4 23,10 17,10"></polyline>
+                            <polyline points="1,20 1,14 7,14"></polyline>
+                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="dashboard-content">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number" id="total-projects">0</span>
+                                <span class="stat-label">총 프로젝트</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14,2 14,8 20,8"></polyline>
+                                </svg>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number" id="total-documents">0</span>
+                                <span class="stat-label">총 문서</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17,8 12,3 7,8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number" id="recent-uploads">0</span>
+                                <span class="stat-label">최근 업로드</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-activity">
+                        <h2 class="section-title">최근 활동</h2>
+                        <div id="activity-list" class="activity-list">
+                            <!-- 동적으로 생성됨 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 기타 화면들은 동적으로 로드됨 -->
+        </main>
+
+        <!-- 하단 탭 네비게이션 -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-screen="dashboard">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>홈</span>
+            </button>
+            
+            <button class="nav-item" data-screen="projects">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>프로젝트</span>
+            </button>
+            
+            <button class="nav-item" data-screen="search">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="M21 21l-4.35-4.35"></path>
+                </svg>
+                <span>검색</span>
+            </button>
+            
+            <button class="nav-item" data-screen="profile">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>프로필</span>
+            </button>
+        </nav>
+
+        <!-- 알림 패널 -->
+        <div id="notification-panel" class="notification-panel">
+            <div class="notification-header">
+                <h3>알림</h3>
+                <button id="close-notifications" class="close-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div id="notification-list" class="notification-list">
+                <!-- 동적으로 생성됨 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 오프라인 알림 -->
+    <div id="offline-notification" class="offline-notification" style="display: none;">
+        <span>오프라인 상태입니다. 연결을 확인해주세요.</span>
+    </div>
+
+    <!-- 토스트 알림 -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/offline.js"></script>
+    
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
+
