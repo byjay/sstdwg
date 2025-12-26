@@ -654,6 +654,29 @@ class SSTDMSMobileApp {
     }
 
     async apiCall(endpoint, options = {}) {
+        // GitHub Pages 환경에서는 API 호출 대신 정적 JSON 파일 로드
+        if (this.apiBaseUrl.includes('github.io')) {
+            console.log(`GitHub Pages 모드: ${endpoint} -> 정적 데이터 로드`);
+            
+            if (endpoint === '/api/dashboard/stats') {
+                return this.getMockDashboardStats();
+            }
+            if (endpoint === '/api/auth/login') {
+                 // 데모용 가짜 로그인 처리
+                const body = JSON.parse(options.body);
+                return {
+                    success: true,
+                    user: {
+                        full_name: '데모 사용자',
+                        category: body.email.includes('admin') ? 'admin' : 'user'
+                    },
+                    token: 'demo-token'
+                };
+            }
+            // 기타 API 호출에 대한 모의 응답
+            return { success: true };
+        }
+
         const url = `${this.apiBaseUrl}${endpoint}`;
         
         // 기본 헤더 설정
@@ -675,13 +698,53 @@ class SSTDMSMobileApp {
             }
         };
         
-        const response = await fetch(url, config);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        try {
+            const response = await fetch(url, config);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return await response.json();
+        } catch (error) {
+            console.warn('API 호출 실패, 오프라인 모드로 전환:', error);
+            // API 실패 시에도 데모 데이터 반환 (GitHub Pages 호환성)
+             if (endpoint === '/api/dashboard/stats') {
+                return this.getMockDashboardStats();
+            }
+            throw error;
         }
-        
-        return await response.json();
+    }
+
+    async getMockDashboardStats() {
+        // drawings.json에서 실제 데이터 로드 시도
+        try {
+            const response = await fetch('data/drawings.json');
+            const drawings = await response.json();
+            
+            // 데이터 분석
+            const totalDocs = drawings.length;
+            const uniqueProjects = new Set(drawings.map(d => d.contractor_dwg_no.split('-')[0])).size;
+            const recent = drawings.slice(0, 5).map(d => ({
+                type: 'create',
+                title: d.title,
+                description: `${d.shop_dwg_no} - ${d.status}`,
+                created_at: new Date().toISOString() // 임시 날짜
+            }));
+
+            return {
+                success: true,
+                data: {
+                    projects: uniqueProjects,
+                    documents: totalDocs,
+                    recent_uploads: 12
+                },
+                activities: recent
+            };
+        } catch (e) {
+            console.error('JSON 로드 실패:', e);
+            return {
+                success: true,
+                data: { projects: 0, documents: 0, recent_uploads: 0 },
+                activities: []
+            };
+        }
     }
 
     showToast(message, type = 'info', duration = 3000) {

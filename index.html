@@ -1,9 +1,34 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SSTDMS - Smart Steel Structure Total Drawing Management System</title>
+    <script>
+        // 디바이스 감지 및 자동 리다이렉트
+        function detectAndRedirect() {
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const currentPath = window.location.pathname;
+
+            // 이미 하위 페이지에 있다면 리다이렉트 하지 않음
+            if (currentPath.includes('/sstdms_mobile_app/') || currentPath.includes('/sstdms_erp/')) {
+                return;
+            }
+
+            if (isMobile) {
+                // 모바일 기기는 모바일 앱으로 이동
+                console.log('Mobile device detected, redirecting to Mobile App...');
+                window.location.replace("sstdms_mobile_app/src/index.html");
+            } else {
+                // 데스크탑은 ERP 대시보드 또는 랜딩 페이지 유지
+                // 사용자가 PC -> ERP 연결을 원했으나, 아직 개발 중이므로 
+                // 랜딩 페이지에서 선택하도록 하거나 필요시 주석 해제하여 사용
+                // window.location.replace("sstdms_erp/frontend/index.html");
+            }
+        }
+        detectAndRedirect();
+    </script>
     <style>
         :root {
             --primary: #0f172a;
@@ -12,7 +37,7 @@
             --text-light: #f8fafc;
             --text-dim: #94a3b8;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
@@ -121,6 +146,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>SSTDMS Portal</h1>
@@ -155,4 +181,5 @@
         </footer>
     </div>
 </body>
+
 </html>
