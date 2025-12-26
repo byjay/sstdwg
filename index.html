@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSTDMS - Smart Steel Structure Total Drawing Management System</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #334155;
+            --accent: #2563eb;
+            --text-light: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(30, 41, 59, 0.8);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.3);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background-color: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            margin-top: 1rem;
+        }
+
+        .status-pill.wip {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+        }
+
+        footer {
+            margin-top: auto;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            padding-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SSTDMS Portal</h1>
+        <p class="subtitle">Smart Steel Structure Total Drawing Management System</p>
+
+        <div class="grid">
+            <a href="sstdms_mobile_app/src/index.html" class="card">
+                <div class="card-icon">📱</div>
+                <h2>Mobile Application</h2>
+                <p>현장 작업자 및 관리자를 위한 모바일 최적화 도면 관리 및 검색 시스템</p>
+                <span class="status-pill">Live Demo</span>
+            </a>
+
+            <a href="sstdms_erp/frontend/index.html" class="card">
+                <div class="card-icon">💻</div>
+                <h2>ERP Dashboard</h2>
+                <p>PC 환경에 최적화된 통합 자재 관리 및 프로젝트 현황 대시보드</p>
+                <span class="status-pill wip">In Development</span>
+            </a>
+
+            <a href="https://github.com/byjay/sstdwg" class="card">
+                <div class="card-icon">📚</div>
+                <h2>Documentation</h2>
+                <p>시스템 매뉴얼, API 문서, 프로젝트 기획서 및 보안 가이드</p>
+                <span class="status-pill">GitHub Repo</span>
+            </a>
+        </div>
+
+        <footer>
+            <p>© 2025 SSTDMS Project. All rights reserved.</p>
+            <p style="margin-top: 0.5rem; opacity: 0.7;">🔒 Authorized Personnel Only</p>
+        </footer>
+    </div>
+</body>
+</html>
