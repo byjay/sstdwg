@@ -1,0 +1,12 @@
+__title__ = 'SSTDMS'
+__version__ = '4.9.2'
+__build__ = 0x040901
+__build_string__ = 'v4.9.2_Wed Jul 23 04:53:37 2025 -0400'
+__django_version__ = '4.2'
+__author__ = 'Roberto Rosario'
+__author_email__ = 'roberto.rosario@mayan-edms.com'
+__description__ = 'Free Open Source Electronic Document Management System'
+__license__ = 'GPL 2.0'
+__copyright_short__ = '2025 Roberto Rosario'
+__copyright__ = '{} {}'.format('Copyright', __copyright_short__)
+__website__ = 'https://www.mayan-edms.com'

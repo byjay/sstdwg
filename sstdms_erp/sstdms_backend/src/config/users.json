@@ -1,0 +1,476 @@
+{
+  "categories": {
+    "admin": {
+      "name": "관리자",
+      "permissions": [
+        "all"
+      ],
+      "description": "시스템 전체 관리 권한"
+    },
+    "registrar": {
+      "name": "등록자",
+      "permissions": [
+        "project_create",
+        "project_edit",
+        "user_view",
+        "document_manage"
+      ],
+      "description": "프로젝트 생성 및 관리 권한"
+    },
+    "user": {
+      "name": "사용자",
+      "permissions": [
+        "project_view",
+        "document_view",
+        "document_download"
+      ],
+      "description": "프로젝트 조회 및 문서 열람 권한"
+    }
+  },
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@seastargo.com",
+      "username": "admin",
+      "full_name": "시스템 관리자",
+      "department": "IT",
+      "position": "시스템 관리자",
+      "category": "admin",
+      "password_hash": "$2b$12$X1wzOF5lbUc3u8Vg7zCEi.RnH3DBHg0G5Fjm4nezLuVoYSD.2rRJ6",
+      "temp_password": null,
+      "password_change_required": false,
+      "language": "ko",
+      "created_at": "2025-07-31T07:25:05.668338",
+      "last_login": null,
+      "active": true,
+      "failed_login_attempts": 0,
+      "locked_until": null,
+      "sessions": [],
+      "audit_log": [
+        {
+          "timestamp": "2025-07-31T07:25:05.668750",
+          "user_id": 1,
+          "action": "user_created",
+          "details": "사용자 생성: admin@seastargo.com",
+          "ip_address": "unknown"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "email": "elcon0955@seastargo.com",
+      "username": "elcon0955",
+      "full_name": "박규진",
+      "department": "설계팀",
+      "position": "팀장",
+      "category": "registrar",
+      "password_hash": "$2b$12$d5uWQy2TZAWRcp1mCFrnQO74ZK52c/3j8Wm85kMKENHWxgwl8hqKS",
+      "temp_password": "l0m1YWsaz9nBQ7wA",
+      "password_change_required": true,
+      "language": "ko",
+      "created_at": "2025-07-31T07:25:06.296763",
+      "last_login": null,
+      "active": true,
+      "failed_login_attempts": 0,
+      "locked_until": null,
+      "sessions": [],
+      "audit_log": [
+        {
+          "timestamp": "2025-07-31T07:25:06.297289",
+          "user_id": 2,
+          "action": "user_created",
+          "details": "사용자 생성: elcon0955@seastargo.com",
+          "ip_address": "unknown"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "email": "designsir@seastargo.com",
+      "username": "designsir",
+      "full_name": "김봉정",
+      "department": "설계팀",
+      "position": "수석설계사",
+      "category": "registrar",
+      "password_hash": "$2b$12$c8xYGxjO95Gns/7i1zYKqeaBE4MbOLsuY96o9nLrHqqBEMXq7BRra",
+      "temp_password": "OKpmknu4v6_K3mDu",
+      "password_change_required": true,
+      "language": "ko",
+      "created_at": "2025-07-31T07:25:06.614193",
+      "last_login": null,
+      "active": true,
+      "failed_login_attempts": 0,
+      "locked_until": null,
+      "sessions": [],
+      "audit_log": [
+        {
+          "timestamp": "2025-07-31T07:25:06.614701",
+          "user_id": 3,
+          "action": "user_created",
+          "details": "사용자 생성: designsir@seastargo.com",
+          "ip_address": "unknown"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "email": "jjyang0812@seastargo.com",
+      "username": "jjyang0812",
+      "full_name": "양종진",
+      "department": "설계팀",
+      "position": "선임설계사",
+      "category": "registrar",
+      "password_hash": "$2b$12$zKmAo9sO4w60JkVwobTmJO/Y8hf9ynuwRQF4oKg9zxq/sA/OtTvwa",
+      "temp_password": "TwzfS6YN81cj_bCm",
+      "password_change_required": true,
+      "language": "ko",
+      "created_at": "2025-07-31T07:25:06.930353",
+      "last_login": null,
+      "active": true,
+      "failed_login_attempts": 0,
+      "locked_until": null,
+      "sessions": [],
+      "audit_log": [
+        {
+          "timestamp": "2025-07-31T07:25:06.930947",
+          "user_id": 4,
+          "action": "user_created",
+          "details": "사용자 생성: jjyang0812@seastargo.com",
+          "ip_address": "unknown"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "email": "bsbinin@seastargo.com",
+      "username": "bsbinin",
+      "full_name": "김정인",
+      "department": "설계팀",
+      "position": "선임설계사",
+      "category": "registrar",
+      "password_hash": "$2b$12$hPH9ZImAC2n2mTDCZtQjI.Tj7tpIx4EA1iL19G8FGTQKPvVDo3SOq",
+      "temp_password": "LgUAM-5BL1vdAGN8",
+      "password_change_required": true,
+      "language": "ko",
+      "created_at": "2025-07-31T07:25:07.248269",
+      "last_login": null,
+      "active": true,
+      "failed_login_attempts": 0,
+      "locked_until": null,
+      "sessions": [],
+      "audit_log": [
+        {
+          "timestamp": "2025-07-31T07:25:07.248765",
+          "user_id": 5,
+          "action": "user_created",
+          "details": "사용자 생성: bsbinin@seastargo.com",
+          "ip_address": "unknown"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "email": "kimmj@seastargo.com",
+      "username": "kimmj",
+      "full_name": "김미진",
+      "department": "설계팀",
+      "position": "설계사",
+      "category": "registrar",
+      "password_hash": "$2b$12$gBA0oOB2FZazOHSiRcWAmuEjecYQSxuECzjZF2MHk4QLjB4bJ0k3W",
+      "temp_password": "vyS5ZLDW9Ha-y8b3",
+      "password_change_required": true,
+      "language": "ko",
+      "created_at": "2025-07-31T07:25:07.565119",
+      "last_login": null,
+      "active": true,
+      "failed_login_attempts": 0,
+      "locked_until": null,
+      "sessions": [],
+      "audit_log": [
+        {
+          "timestamp": "2025-07-31T07:25:07.565695",
+          "user_id": 6,
+          "action": "user_created",
+          "details": "사용자 생성: kimmj@seastargo.com",
+          "ip_address": "unknown"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "email": "jmlee@seastargo.com",
+      "username": "jmlee",
+      "full_name": "이재명",
+      "department": "설계팀",
+      "position": "설계사",
+      "category": "registrar",
+      "password_hash": "$2b$12$FjgRdhksIg68JwaAyVj6D.HYsvL5BwgAYaeTnHnVDPtvnzi0P.KJ.",
+      "temp_password": "AK_byM3NvDZyAcRQ",
+      "password_change_required": true,
+      "language": "ko",
+      "created_at": "2025-07-31T07:25:07.878763",
+      "last_login": null,
+      "active": true,
+      "failed_login_attempts": 0,
+      "locked_until": null,
+      "sessions": [],
+      "audit_log": [
+        {
+          "timestamp": "2025-07-31T07:25:07.879347",
+          "user_id": 7,
+          "action": "user_created",
+          "details": "사용자 생성: jmlee@seastargo.com",
+          "ip_address": "unknown"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "email": "lsw00@seastargo.com",
+      "username": "lsw00",
+      "full_name": "이선우",
+      "department": "설계팀",
+      "position": "설계사",
+      "category": "registrar",
+      "password_hash": "$2b$12$eVfwVaDW0FsrIelbK4lWd.Ol6M1mGA1E.Qokby9JHzDntSEU7gRVu",
+      "temp_password": "dQ5536qbkV5KJaX4",
+      "password_change_required": true,
+      "language": "ko",
+      "created_at": "2025-07-31T07:25:08.190925",
+      "last_login": null,
+      "active": true,
+      "failed_login_attempts": 0,
+      "locked_until": null,
+      "sessions": [],
+      "audit_log": [
+        {
+          "timestamp": "2025-07-31T07:25:08.191404",
+          "user_id": 8,
+          "action": "user_created",
+          "details": "사용자 생성: lsw00@seastargo.com",
+          "ip_address": "unknown"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "email": "min55@seastargo.com",
+      "username": "min55",
+      "full_name": "김민경",
+      "department": "설계팀",
+      "position": "설계사",
+      "category": "registrar",
+      "password_hash": "$2b$12$WRA408vWMqdznXaZPdyYWO19JTYZq9OV8PrL.6p.V0bB3Ny/ptMgK",
+      "temp_password": "AMV2szUU5wDmFNGV",
+      "password_change_required": true,
+      "language": "ko",
+      "created_at": "2025-07-31T07:25:08.503201",
+      "last_login": null,
+      "active": true,
+      "failed_login_attempts": 0,
+      "locked_until": null,
+      "sessions": [],
+      "audit_log": [
+        {
+          "timestamp": "2025-07-31T07:25:08.503795",
+          "user_id": 9,
+          "action": "user_created",
+          "details": "사용자 생성: min55@seastargo.com",
+          "ip_address": "unknown"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "email": "kohyk@seastargo.com",
+      "username": "kohyk",
+      "full_name": "고영관",
+      "department": "설계팀",
+      "position": "설계사",
+      "category": "registrar",
+      "password_hash": "$2b$12$V6v637ByDU1tG1urfpvu1.P6iGqJpF.Fuyr2TXTf58LIUb720/YVe",
+      "temp_password": "68vqTtiamzY8jrIX",
+      "password_change_required": true,
+      "language": "ko",
+      "created_at": "2025-07-31T07:25:08.816413",
+      "last_login": null,
+      "active": true,
+      "failed_login_attempts": 0,
+      "locked_until": null,
+      "sessions": [],
+      "audit_log": [
+        {
+          "timestamp": "2025-07-31T07:25:08.817062",
+          "user_id": 10,
+          "action": "user_created",
+          "details": "사용자 생성: kohyk@seastargo.com",
+          "ip_address": "unknown"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "email": "jmkim@seastargo.com",
+      "username": "jmkim",
+      "full_name": "김정남",
+      "department": "설계팀",
+      "position": "설계사",
+      "category": "registrar",
+      "password_hash": "$2b$12$zG0sebOXKbjdsuCEjJIIP.jYSi4cstWq8o2F8W..M1Xzm58BT9MWO",
+      "temp_password": "adacvyPKmeDbE7k3",
+      "password_change_required": true,
+      "language": "ko",
+      "created_at": "2025-07-31T07:25:09.128589",
+      "last_login": null,
+      "active": true,
+      "failed_login_attempts": 0,
+      "locked_until": null,
+      "sessions": [],
+      "audit_log": [
+        {
+          "timestamp": "2025-07-31T07:25:09.129338",
+          "user_id": 11,
+          "action": "user_created",
+          "details": "사용자 생성: jmkim@seastargo.com",
+          "ip_address": "unknown"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "email": "ubcho@seastargo.com",
+      "username": "ubcho",
+      "full_name": "조운복",
+      "department": "설계팀",
+      "position": "설계사",
+      "category": "registrar",
+      "password_hash": "$2b$12$KxMhymZc/FPNDmw/mqdW3.99rUfjoIHU/J.8jD9aIbQDBVnQqoQJe",
+      "temp_password": "EQTrIkNuZtuIsTHf",
+      "password_change_required": true,
+      "language": "ko",
+      "created_at": "2025-07-31T07:25:09.440066",
+      "last_login": null,
+      "active": true,
+      "failed_login_attempts": 0,
+      "locked_until": null,
+      "sessions": [],
+      "audit_log": [
+        {
+          "timestamp": "2025-07-31T07:25:09.440737",
+          "user_id": 12,
+          "action": "user_created",
+          "details": "사용자 생성: ubcho@seastargo.com",
+          "ip_address": "unknown"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "email": "khlee@seastargo.com",
+      "username": "khlee",
+      "full_name": "이근호",
+      "department": "설계팀",
+      "position": "설계사",
+      "category": "registrar",
+      "password_hash": "$2b$12$CUQzPNmGNW019fPQ.kZtwO6fUiVqNZ7Jie.ED2AkDW38ApnJYqpAe",
+      "temp_password": "U-v9vntrf559eG2b",
+      "password_change_required": true,
+      "language": "ko",
+      "created_at": "2025-07-31T07:25:09.751181",
+      "last_login": null,
+      "active": true,
+      "failed_login_attempts": 0,
+      "locked_until": null,
+      "sessions": [],
+      "audit_log": [
+        {
+          "timestamp": "2025-07-31T07:25:09.751764",
+          "user_id": 13,
+          "action": "user_created",
+          "details": "사용자 생성: khlee@seastargo.com",
+          "ip_address": "unknown"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "email": "jslee@seastargo.com",
+      "username": "jslee",
+      "full_name": "이재성",
+      "department": "설계팀",
+      "position": "설계사",
+      "category": "registrar",
+      "password_hash": "$2b$12$wIhfhOzNdG5mm/d1T1IK1OxUqF40A.dkr.5u8E2wWuPbEfumXGeam",
+      "temp_password": "mQWfkrdbb5pGdk6h",
+      "password_change_required": true,
+      "language": "ko",
+      "created_at": "2025-07-31T07:25:10.062277",
+      "last_login": null,
+      "active": true,
+      "failed_login_attempts": 0,
+      "locked_until": null,
+      "sessions": [],
+      "audit_log": [
+        {
+          "timestamp": "2025-07-31T07:25:10.062904",
+          "user_id": 14,
+          "action": "user_created",
+          "details": "사용자 생성: jslee@seastargo.com",
+          "ip_address": "unknown"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "email": "jkohkr@seastargo.com",
+      "username": "jkohkr",
+      "full_name": "고재이",
+      "department": "설계팀",
+      "position": "설계사",
+      "category": "registrar",
+      "password_hash": "$2b$12$B21AgI56YRVK.QygB05tnePPrwga2g/XmijmiF3q9m1yRv/cSPyM2",
+      "temp_password": "JT0NMIpcIB5RD8uJ",
+      "password_change_required": true,
+      "language": "ko",
+      "created_at": "2025-07-31T07:25:10.373311",
+      "last_login": null,
+      "active": true,
+      "failed_login_attempts": 0,
+      "locked_until": null,
+      "sessions": [],
+      "audit_log": [
+        {
+          "timestamp": "2025-07-31T07:25:10.374975",
+          "user_id": 15,
+          "action": "user_created",
+          "details": "사용자 생성: jkohkr@seastargo.com",
+          "ip_address": "unknown"
+        }
+      ]
+    }
+  ],
+  "security": {
+    "password_policy": {
+      "min_length": 8,
+      "require_uppercase": true,
+      "require_lowercase": true,
+      "require_numbers": true,
+      "require_special": true,
+      "max_age_days": 90
+    },
+    "session": {
+      "timeout_minutes": 60,
+      "max_concurrent_sessions": 3
+    },
+    "login": {
+      "max_attempts": 5,
+      "lockout_duration_minutes": 30
+    }
+  },
+  "audit": {
+    "log_login_attempts": true,
+    "log_password_changes": true,
+    "log_permission_changes": true,
+    "retention_days": 365
+  }
+}
